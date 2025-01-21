@@ -60,10 +60,10 @@ basic.forever(function () {
 //% color=#0000FF
 //% icon="\uf3c5"
 //% block="GPS"
-//% baudRate.defl=9600
 namespace GPS {
 
     //% block="GPS init|tx pin $tx|rx pin $rx|baud rate $baudRate"
+    //% baudRate.defl=9600
     export function init(tx: SerialPin, rx: SerialPin, baudRate: BaudRate) {
         gps.init(tx, rx, baudRate)
     }

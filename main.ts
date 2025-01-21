@@ -57,7 +57,7 @@ basic.forever(function () {
     }
 })
 
-//% color=#0000FF
+//% color=#00A928
 //% icon="\uf3c5"
 //% block="GPS"
 namespace GPS {

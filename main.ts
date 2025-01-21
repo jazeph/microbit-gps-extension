@@ -59,7 +59,7 @@ basic.forever(function () {
 
 //% color=#0000FF
 //% icon="\uf3c5"
-//% group="micro:bit (V2)"
+//% block="GPS"
 namespace GPS {
     //% block
     //% group="micro:bit (V2)"

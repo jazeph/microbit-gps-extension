@@ -62,7 +62,7 @@ basic.forever(function () {
 //% block="GPS"
 namespace GPS {
 
-    //% block="GPS init | tx pin $tx | rx pin $rx | baud rate $baudRate"
+    //% block="GPS init|tx pin $tx|rx pin $rx|baud rate $baudRate"
     export function init(tx: SerialPin, rx: SerialPin, baudRate: BaudRate) {
         gps.init(tx, rx, baudRate)
     }

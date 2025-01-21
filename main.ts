@@ -58,6 +58,7 @@ basic.forever(function () {
 //% block="GPS"
 namespace GPS {
 
+    //% blockId=gps_init
     //% block="GPS init|tx pin $tx|rx pin $rx|baud rate $baudRate"
     //% tx.defl=P0
     //% rx.defl=P1

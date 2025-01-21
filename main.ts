@@ -64,16 +64,16 @@ namespace GPS {
 
     //% block="GPS init | tx pin $tx | rx pin $rx | baud rate $baudRate"
     export function init(tx: SerialPin, rx: SerialPin, baudRate: BaudRate) {
-        GPS.init(tx, rx, baudRate)
+        gps.init(tx, rx, baudRate)
     }
 
     //% block
     export function latitude() {
-        return GPS.latitude;
+        return gps.latitude;
     }
 
     //% block
     export function longitude() {
-        return GPS.longitude;
+        return gps.longitude;
     }
 }

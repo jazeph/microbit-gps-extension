@@ -1,5 +1,5 @@
 {
-    "name": "microbit-gps-extension - Copy",
+    "name": "microbit-gps-extension",
     "description": "",
     "dependencies": {
         "core": "*",

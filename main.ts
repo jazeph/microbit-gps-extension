@@ -5,11 +5,7 @@ class GPS {
     satellites: number
 
     init(tx: SerialPin, rx: SerialPin, baudRate: BaudRate) {
-        serial.redirect(
-            SerialPin.P0,
-            SerialPin.P1,
-            BaudRate.BaudRate9600
-        )
+        serial.redirect(tx, rx, baudRate)
         // serial.setRxBufferSize(200)
     }
 
@@ -63,7 +59,9 @@ basic.forever(function () {
 namespace GPS {
 
     //% block="GPS init|tx pin $tx|rx pin $rx|baud rate $baudRate"
-    //% baudRate.defl=9600
+    //% tx.defl=P0
+    //% rx.defl=P1
+    //% baudRate.defl=BaudRate9600
     export function init(tx: SerialPin, rx: SerialPin, baudRate: BaudRate) {
         gps.init(tx, rx, baudRate)
     }

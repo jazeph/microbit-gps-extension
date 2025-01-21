@@ -4,6 +4,12 @@ class GPS {
     longitude: number
     satellites: number
 
+    constructor() {
+        this.latitude = 0
+        this.longitude = 0
+        this.satellites = 0
+    }
+
     init(tx: SerialPin, rx: SerialPin, baudRate: BaudRate) {
         serial.redirect(tx, rx, baudRate)
         // serial.setRxBufferSize(200)

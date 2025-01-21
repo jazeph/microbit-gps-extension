@@ -60,9 +60,9 @@ namespace GPS {
 
     //% blockId=gps_init
     //% block="GPS init|tx pin $tx|rx pin $rx|baud rate $baudRate"
-    //% tx.defl=P0
-    //% rx.defl=P1
-    //% baudRate.defl=BaudRate9600
+    //% tx.defl=SerialPin.P0
+    //% rx.defl=SerialPin.P1
+    //% baudRate.defl=BaudRate.BaudRate9600
     export function init(tx: SerialPin, rx: SerialPin, baudRate: BaudRate) {
         gps.init(tx, rx, baudRate)
     }

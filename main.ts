@@ -61,9 +61,19 @@ basic.forever(function () {
 //% icon="\uf3c5"
 //% block="GPS"
 namespace GPS {
+
+    //% block="GPS init"
+    export function init(tx: SerialPin, rx: SerialPin, baudRate: BaudRate) {
+        GPS.init(tx, rx, baudRate)
+    }
+
     //% block
-    //% group="micro:bit (V2)"
     export function latitude() {
         return GPS.latitude;
+    }
+
+    //% block
+    export function longitude() {
+        return GPS.longitude;
     }
 }

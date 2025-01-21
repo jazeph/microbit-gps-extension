@@ -76,4 +76,9 @@ namespace GPS {
     export function longitude() {
         return gps.longitude;
     }
+
+    //% block
+    export function satellites() {
+        return gps.satellites;
+    }
 }

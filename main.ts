@@ -1,37 +1,58 @@
-function removeLeadingZeros (str: string) {
-    removed_leading_zeros = str
+class GPS {
+
+    latitude: number
+    longitude: number
+    satellites: number
+
+    init(tx: SerialPin, rx: SerialPin, baudRate: BaudRate) {
+        serial.redirect(
+            SerialPin.P0,
+            SerialPin.P1,
+            BaudRate.BaudRate9600
+        )
+        // serial.setRxBufferSize(200)
+    }
+
+    update(latitudeStr: string, latitudeDir: string, longitudeStr: string, longitudeDir: string, satellitesStr: string) {
+        this.latitude = (latitudeDir == "N" ? 1 : -1) * parseFloat(removeLeadingZeros(latitudeStr))
+        this.longitude = (longitudeDir == "E" ? 1 : -1) * parseFloat(removeLeadingZeros(longitudeStr))
+        this.satellites = parseFloat(removeLeadingZeros(satellitesStr))
+    }
+
+    toString() {
+        return "lat=" + this.latitude + " lon=" + this.longitude + " sat=" + this.satellites
+    }
+}
+
+function removeLeadingZeros(str: string) {
+    let removed_leading_zeros = str
     while (removed_leading_zeros.substr(0, 1) == "0") {
         removed_leading_zeros = removed_leading_zeros.substr(1, removed_leading_zeros.length - 1)
     }
     return removed_leading_zeros
 }
-let gps_satellites = ""
-let _gps_lon_ew = ""
-let gps_longitude = ""
-let _gps_lat_ns = ""
-let gps_latitude = ""
-let _gps_ignore = ""
-let _gps_field = ""
-let removed_leading_zeros = ""
-serial.redirect(
-SerialPin.P0,
-SerialPin.P1,
-BaudRate.BaudRate9600
-)
-serial.setRxBufferSize(200)
+
+let gps = new GPS()
+
 basic.forever(function () {
-    _gps_field = serial.readUntil(serial.delimiters(Delimiters.Comma))
-    if (_gps_field.includes("$GPGGA")) {
-        _gps_ignore = serial.readUntil(serial.delimiters(Delimiters.Comma))
-        gps_latitude = removeLeadingZeros(serial.readUntil(serial.delimiters(Delimiters.Comma)))
-        _gps_lat_ns = serial.readUntil(serial.delimiters(Delimiters.Comma))
-        if (_gps_lat_ns == "S") {
-        	
-        }
-        gps_longitude = removeLeadingZeros(serial.readUntil(serial.delimiters(Delimiters.Comma)))
-        _gps_lon_ew = serial.readUntil(serial.delimiters(Delimiters.Comma))
-        _gps_ignore = serial.readUntil(serial.delimiters(Delimiters.Comma))
-        gps_satellites = removeLeadingZeros(serial.readUntil(serial.delimiters(Delimiters.Comma)))
-        basic.showString("lat=" + gps_latitude + " lon=" + gps_longitude + " sat=" + gps_satellites)
+
+    let nmeaField = serial.readUntil(serial.delimiters(Delimiters.Comma))
+
+    if (nmeaField.includes("$GPGGA")) {
+
+        serial.readUntil(serial.delimiters(Delimiters.Comma)) // ignore
+
+        let latitude = removeLeadingZeros(serial.readUntil(serial.delimiters(Delimiters.Comma)))
+        let latitudeDir = serial.readUntil(serial.delimiters(Delimiters.Comma))
+        let longitude = serial.readUntil(serial.delimiters(Delimiters.Comma))
+        let longitudeDir = serial.readUntil(serial.delimiters(Delimiters.Comma))
+
+        serial.readUntil(serial.delimiters(Delimiters.Comma)) // ignore
+
+        let satellites = serial.readUntil(serial.delimiters(Delimiters.Comma))
+
+        gps.update(latitude, latitudeDir, longitude, longitudeDir, satellites)
+
+        basic.showString(gps.toString())
     }
 })

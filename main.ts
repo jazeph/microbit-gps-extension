@@ -56,3 +56,14 @@ basic.forever(function () {
         basic.showString(gps.toString())
     }
 })
+
+//% color=#0000FF
+//% icon="\uf3c5"
+//% group="micro:bit (V2)"
+namespace GPS {
+    //% block
+    //% group="micro:bit (V2)"
+    export function latitude() {
+        return GPS.latitude;
+    }
+}

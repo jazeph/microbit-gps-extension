@@ -34,26 +34,31 @@ function removeLeadingZeros(str: string) {
 
 let gps = new GPS();
 
+function readGPGGA() {
+    let result: string[] = [
+        serial.readUntil(serial.delimiters(Delimiters.Comma)),
+        serial.readUntil(serial.delimiters(Delimiters.Comma)),
+        serial.readUntil(serial.delimiters(Delimiters.Comma)),
+        serial.readUntil(serial.delimiters(Delimiters.Comma)),
+        serial.readUntil(serial.delimiters(Delimiters.Comma)),
+        serial.readUntil(serial.delimiters(Delimiters.Comma)),
+        serial.readUntil(serial.delimiters(Delimiters.Comma))
+    ];
+    return result;
+}
+
+function updateGPS(gpggaData: string[]) {
+    gps.update(gpggaData[1], gpggaData[2], gpggaData[3], gpggaData[4], gpggaData[6]);
+}
+
 basic.forever(function () {
 
     let nmeaField = serial.readUntil(serial.delimiters(Delimiters.Comma));
 
     if (nmeaField.includes("$GPGGA")) {
-
-        serial.readUntil(serial.delimiters(Delimiters.Comma)); // ignore
-
-        let latitude = serial.readUntil(serial.delimiters(Delimiters.Comma));
-        let latitudeDir = serial.readUntil(serial.delimiters(Delimiters.Comma));
-        let longitude = serial.readUntil(serial.delimiters(Delimiters.Comma));
-        let longitudeDir = serial.readUntil(serial.delimiters(Delimiters.Comma));
-
-        serial.readUntil(serial.delimiters(Delimiters.Comma)); // ignore
-
-        let satellites = serial.readUntil(serial.delimiters(Delimiters.Comma));
-
-        gps.update(latitude, latitudeDir, longitude, longitudeDir, satellites);
-
-        basic.showString(gps.toString());
+        let gpggaData = readGPGGA();
+        updateGps(gpggaData);
+        //basic.showString(gps.toString());
     }
 })
 

@@ -57,7 +57,7 @@ basic.forever(function () {
 
     if (nmeaField.includes("$GPGGA")) {
         let gpggaData = readGPGGA();
-        updateGps(gpggaData);
+        updateGPS(gpggaData);
         //basic.showString(gps.toString());
     }
 })

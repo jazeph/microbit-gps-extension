@@ -1,4 +1,4 @@
-class GPS {
+class GPSData {
 
     latitude: number;
     longitude: number;
@@ -32,7 +32,7 @@ function removeLeadingZeros(str: string) {
     return removed_leading_zeros;
 }
 
-let gps = new GPS();
+let gps = new GPSData();
 
 function readGPGGA() {
     let result: string[] = [
